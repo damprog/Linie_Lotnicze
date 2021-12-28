@@ -1,4 +1,4 @@
-﻿using Linie_Lotnicze_Przemyslaw_Pawluk.Bilety;
+﻿using Linie_Lotnicze_Przemyslaw_Pawluk.Klienci;
 using Linie_Lotnicze_Przemyslaw_Pawluk.LinieLotnicze;
 using Linie_Lotnicze_Przemyslaw_Pawluk.TypyWyliczeniowe;
 using System;
@@ -11,7 +11,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
     // - Budowniczy - do tworzenia lini lotniczych
     // - Dekorator - do zmodyfikowania biletu.. modyfikuje sposób obliczania 
     //      ceny dla biletów kupionych z rezerwacji
-    // - 
+    // - Pełnomocnik - do pozwalania lub blokowania działań klienta, określa czy można zakupić bilet
     // - 
     // - 
 
@@ -22,7 +22,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
         static string nazwisko;
         static LiniaLotnicza liniaLotnicza;
         static Przelot przelot;
-        static Klient klient;
+        static KlientProxy klient;
         static RodzajBiletu rodzaj;
         static int liczbaDoroslych;
         static int liczbaDzieci;
@@ -33,7 +33,6 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
         {
             StworzLinieLotnicze();
 
-            //Naglowek programu
             NaglowekProgramu();
             // Tworzenie użytkownika
             klient = TworzenieUzytkownika();
@@ -41,6 +40,8 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
             Formularz();
             //Tworzenie biletu na podstawie zebranych informacji
             bilet = new Bilet(imie, nazwisko, rodzaj, pierwszaKlasa, liczbaDoroslych, liczbaDzieci, liniaLotnicza, przelot);
+            //Informacje potrzebne do zezwolenia na działanie
+            klient.PrzekazInformacje(przelot, liczbaDzieci, liczbaDoroslych);
 
             Console.WriteLine("Wybierz następny krok");
             Console.WriteLine("1 - Zarezerwuj bilet");
@@ -48,61 +49,15 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
             int idWybor = int.Parse(Console.ReadLine());
             if (idWybor == 1)
             {
-                //Sprawdzenie czy można zarezerwować bilet - czy są wolne miejsca
-                if (przelot.SprawdzDostepnosc(liczbaDzieci + liczbaDoroslych))
-                {
-                    ZarezerwujBilet(klient);
-                }
-                else
-                {
-                    Console.WriteLine("Przepraszamy, nie ma wystarczająco miejsc, wybierz inny przelot.");
-                }
-
+                klient.ZarezerwujBilet(bilet, przelot);
             }
             else if (idWybor == 2)
             {
-                //Sprawdzenie czy można kupić bilet - czy są wolne miejsca
-                if (przelot.SprawdzDostepnosc(liczbaDzieci + liczbaDoroslych))
-                {
-                    KupBilet(klient);
-                }
-                else
-                {
-                    Console.WriteLine("Przepraszamy, nie ma wystarczająco miejsc, wybierz inny przelot.");
-                }
+                klient.KupBilet(bilet, przelot);
             }
             // klient może zobaczyć jakie już posiada rezerwacje
             // klient może zobaczyć jakie posiada bilety
 
-        }
-
-        private static void KupBilet(Klient klient)
-        {
-            // Sprawdzenie czy klient ma rezerwacje na bilet
-            bool czyBylaRezerwacja = false;
-            IRezerwacja rezerwacja = klient.rezerwacje.Find(x => x.zarezerwowanyBilet == bilet);
-            if (rezerwacja != null) czyBylaRezerwacja = true;
-            if (czyBylaRezerwacja)
-            {
-                // Jeśli tak to dekorator
-                // Bilet z rabatem
-                BiletZRezerwacji biletZRezerwacji = new BiletZRezerwacji((BiletAbstract)bilet);
-                biletZRezerwacji.ObliczCene();
-                klient.Kup(biletZRezerwacji, (Rezerwacja)rezerwacja);
-            }
-            else
-            {
-                // Jeśli nie to zwykly bilet
-                // Bilet bez rabatu
-                bilet.ObliczCene();
-                klient.Kup(bilet);
-            }
-        }
-
-        private static void ZarezerwujBilet(IKlient klient)
-        {
-            Rezerwacja rezerwacja = new Rezerwacja(bilet);
-            klient.Rezerwuj(rezerwacja);
         }
 
         private static void Formularz()
@@ -156,9 +111,9 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
             Console.WriteLine($" > Użytkownik - {imie} {nazwisko}\n");
         }
 
-        private static Klient TworzenieUzytkownika()
+        private static KlientProxy TworzenieUzytkownika()
         {
-            Klient klient;
+            KlientProxy klient;
             try
             {
                 Console.WriteLine("Wypełnij prosty formularz aby przejść dalej");
@@ -166,7 +121,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
                 imie = Console.ReadLine();
                 Console.WriteLine("Teraz podaj swoje nazwisko");
                 nazwisko = Console.ReadLine();
-                klient = new Klient(imie, nazwisko);
+                klient = new KlientProxy(imie, nazwisko);
                 Console.WriteLine($"Utworzyliśmy użytkownika: {imie} {nazwisko}\n");
                 Console.ReadLine();
                 Console.Clear();
