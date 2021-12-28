@@ -17,9 +17,10 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
         public void WyswietlInfo()
         {
             Console.WriteLine($"Rezerwacja na {zarezerwowanyBilet.imie} {zarezerwowanyBilet.nazwisko}\n" +
-                $"Dorośli - {zarezerwowanyBilet.liczbaDoroslych}, Dzieci - {zarezerwowanyBilet.liczbaDzieci}" +
-                $"INFORMACJE O LOCIE" +
+                $"Dorośli - {zarezerwowanyBilet.liczbaDoroslych}, Dzieci - {zarezerwowanyBilet.liczbaDzieci}\n" +
+                $"INFORMACJE O LOCIE\n" +
                 $"{zarezerwowanyBilet.przelot.DajInfo()}");
+            Console.WriteLine("\n---------------------------------------------------\n");
         }
     }
 }

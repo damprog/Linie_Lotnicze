@@ -34,10 +34,13 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
 
         public override void WyswietlInfo()
         {
-            Console.WriteLine($"Bilet na lot samolotem liniami {liniaLotnicza.nazwa}\n" +
-                $"{imie} {nazwisko}\n" +
-                $"Liczba osób {liczbaDoroslych+liczbaDzieci} w tym {liczbaDzieci} dzieci" +
-                $"Data: {przelot.dzienOdlotu} - godz. {przelot.godzinaOdlotu}");
+            Console.WriteLine($"Bilet na lot samolotem\n" +
+                $"Linia: {liniaLotnicza.nazwa}\n" +
+                $"Osoba: {imie} {nazwisko}\n" +
+                $"Liczba osób {liczbaDoroslych+liczbaDzieci} w tym {liczbaDzieci} dzieci\n" +
+                $"Data: {przelot.dzienOdlotu} - godz. {przelot.godzinaOdlotu}\n" +
+                $"Cena: {cena}");
+            Console.WriteLine("\n---------------------------------------------------\n");
         }
     }
 }

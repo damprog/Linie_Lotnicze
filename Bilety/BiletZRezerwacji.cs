@@ -18,12 +18,12 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk.Bilety
         public override void ObliczCene()
         {
             base.ObliczCene();
-            ObliczCenePoZnizce();
         }
-        public void ObliczCenePoZnizce()
+        public double ObliczCenePoZnizce(double cena)
         {
             cena *= 0.8;
             Console.WriteLine("Uwzględniono rabat z rezerwacji");
+            return cena;
         }
     }
 }

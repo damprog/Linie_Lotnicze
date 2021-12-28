@@ -28,6 +28,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
         static int liczbaDzieci;
         static bool pierwszaKlasa;
         static IBilet bilet;
+        static List<KlientProxy> klienci = new List<KlientProxy>();
 
         static void Main(string[] args)
         {
@@ -36,6 +37,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
             NaglowekProgramu();
             // Tworzenie użytkownika
             klient = TworzenieUzytkownika();
+            klienci.Add(klient);
             //Formularz potrzebny do zebrania informacji wymaganych do zakupu biletu
             Formularz();
             //Tworzenie biletu na podstawie zebranych informacji
@@ -43,21 +45,57 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
             //Informacje potrzebne do zezwolenia na działanie
             klient.PrzekazInformacje(przelot, liczbaDzieci, liczbaDoroslych);
 
-            Console.WriteLine("Wybierz następny krok");
-            Console.WriteLine("1 - Zarezerwuj bilet");
-            Console.WriteLine("2 - Kup bilet");
-            int idWybor = int.Parse(Console.ReadLine());
-            if (idWybor == 1)
+            bool x = true;
+            while (x)
             {
-                klient.ZarezerwujBilet(bilet, przelot);
+                Console.WriteLine("Wybierz następny krok");
+                Console.WriteLine("1 - Zarezerwuj bilet");
+                Console.WriteLine("2 - Kup bilet");
+                Console.WriteLine("3 - Zobacz rezerwacje");
+                Console.WriteLine("4 - Zobacz zakupione bilety");
+                Console.WriteLine("0 - Wyjście z programu");
+                int idWybor = int.Parse(Console.ReadLine());
+                if (idWybor == 1)
+                {
+                    Console.Clear();
+                    NaglowekProgramu();
+                    klient.ZarezerwujBilet(bilet, przelot);
+                    Console.ReadLine();
+                    Console.Clear();
+                    NaglowekProgramu();
+                }
+                else if (idWybor == 2)
+                {
+                    Console.Clear();
+                    NaglowekProgramu();
+                    klient.KupBilet(bilet, przelot);
+                    Console.ReadLine();
+                    Console.Clear();
+                    NaglowekProgramu();
+                }
+                else if (idWybor == 3)
+                {
+                    Console.Clear();
+                    NaglowekProgramu();
+                    klient.PokazRezerwacje();
+                    Console.ReadLine();
+                    Console.Clear();
+                    NaglowekProgramu();
+                }
+                else if (idWybor == 4)
+                {
+                    Console.Clear();
+                    NaglowekProgramu();
+                    klient.PokazBilety();
+                    Console.ReadLine();
+                    Console.Clear();
+                    NaglowekProgramu();
+                }
+                else if(idWybor == 0)
+                {
+                    Environment.Exit(0);
+                }
             }
-            else if (idWybor == 2)
-            {
-                klient.KupBilet(bilet, przelot);
-            }
-            // klient może zobaczyć jakie już posiada rezerwacje
-            // klient może zobaczyć jakie posiada bilety
-
         }
 
         private static void Formularz()

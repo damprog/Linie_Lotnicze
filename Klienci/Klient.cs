@@ -15,6 +15,8 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
         {
             this.imie = imie;
             this.nazwisko = nazwisko;
+           /* bilety = new List<IBilet>();
+            rezerwacje = new List<IRezerwacja>();*/
         }
 
         public void PokazBilety()

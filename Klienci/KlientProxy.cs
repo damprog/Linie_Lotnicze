@@ -4,15 +4,10 @@ using System.Collections.Generic;
 
 namespace Linie_Lotnicze_Przemyslaw_Pawluk.Klienci
 {
-    class KlientProxy : IKlient
+    class KlientProxy 
     {
-        Klient klient;
-        public string imie { get; set; }
-
-        public string nazwisko { get; set; }
-
-        public List<IBilet> bilety { get; set; }
-        public List<IRezerwacja> rezerwacje { get; set; }
+        public Klient klient;
+        
 
         private Przelot przelot;
         private int liczbaDzieci;
@@ -20,6 +15,8 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk.Klienci
         public KlientProxy(string imie, string nazwisko)
         {
             this.klient = new Klient(imie, nazwisko);
+            klient.bilety = new List<IBilet>();
+            klient.rezerwacje = new List<IRezerwacja>();
         }
 
         public void PrzekazInformacje(Przelot przelot, int liczbaDzieci, int liczbaDoroslych)
@@ -55,9 +52,10 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk.Klienci
                 {
                     // Jeśli tak to dekorator
                     // Bilet z rabatem
-                    BiletZRezerwacji biletZRezerwacji = new BiletZRezerwacji((BiletAbstract)bilet);
-                    biletZRezerwacji.ObliczCene();
-                    Kup(biletZRezerwacji, (Rezerwacja)rezerwacja);
+                    BiletZRezerwacji biletZRezerwacji = new BiletZRezerwacji((BiletAbstract)rezerwacja.zarezerwowanyBilet);
+                    biletZRezerwacji.bilet.ObliczCene();
+                    biletZRezerwacji.bilet.cena = biletZRezerwacji.ObliczCenePoZnizce(biletZRezerwacji.bilet.cena);
+                    Kup(biletZRezerwacji.bilet, (Rezerwacja)rezerwacja);
                 }
                 else
                 {
