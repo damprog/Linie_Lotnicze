@@ -21,7 +21,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
 
         public void PokazBilety()
         {
-            Console.WriteLine($"{imie}: Bilety");
+            Console.WriteLine($"{imie} {nazwisko}: Bilety");
             foreach (IBilet b in bilety)
             {
                 b.WyswietlInfo();
@@ -30,7 +30,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
 
         public void PokazRezerwacje()
         {
-            Console.WriteLine($"{imie}: Rezerwacje");
+            Console.WriteLine($"{imie} {nazwisko}: Rezerwacje");
             foreach (IRezerwacja r in rezerwacje)
             {
                 r.WyswietlInfo();
