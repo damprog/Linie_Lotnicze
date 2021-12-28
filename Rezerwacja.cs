@@ -6,20 +6,20 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
 {
     class Rezerwacja : IRezerwacja
     {
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
-        public int ileDoroslych { get; set; } = 0;
-        public int ileDzieci { get; set; } = 0;
-        public IPrzelot przelot { get; set; }
-        public ILiniaLotnicza liniaLotnicza { get; set; }
+       
         public IBilet zarezerwowanyBilet { get; set; }
+
+        public Rezerwacja(IBilet zarezerwowanyBilet)
+        {
+            this.zarezerwowanyBilet = zarezerwowanyBilet;
+        }
 
         public void WyswietlInfo()
         {
-            Console.WriteLine($"Rezerwacja na {imie} {nazwisko}\n" +
-                $"Dorośli - {ileDoroslych}, Dzieci - {ileDzieci}" +
+            Console.WriteLine($"Rezerwacja na {zarezerwowanyBilet.imie} {zarezerwowanyBilet.nazwisko}\n" +
+                $"Dorośli - {zarezerwowanyBilet.liczbaDoroslych}, Dzieci - {zarezerwowanyBilet.liczbaDzieci}" +
                 $"INFORMACJE O LOCIE" +
-                $"{przelot.DajInfo()}");
+                $"{zarezerwowanyBilet.przelot.DajInfo()}");
         }
     }
 }

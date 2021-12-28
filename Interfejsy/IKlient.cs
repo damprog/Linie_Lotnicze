@@ -12,8 +12,10 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
         List<IRezerwacja> rezerwacje { get; set; }
         void PokazRezerwacje();
         void PokazBilety();
-        void Rezerwuj();
-        void Kup();
+        void Rezerwuj(Rezerwacja rezerwacja);
+        void Kup(IBilet bilet);
+        void Kup(IBilet bilet, Rezerwacja rezerwacja);
+        void ZdejmijRezerwacje(Rezerwacja rezerwacja);
 
     }
 }

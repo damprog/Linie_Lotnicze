@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Linie_Lotnicze_Przemyslaw_Pawluk.LinieLotnicze
 {
-    //Klasa jako produkt
+    //Klasa jako produkt dla budowniczego
     class LiniaLotnicza : ILiniaLotnicza 
     {
         public int id { get; set; }
@@ -19,20 +19,21 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk.LinieLotnicze
 
         public void WyswitlInfo()
         {
-            Console.WriteLine($"{nazwa}: oferuje przeloty samolotem\n" +
-                $"Podstawowe informacje:\n" +
-                $"Bagaż podręczny - {bagazPodreczny}\n" +
-                $"Bagaż rejestrowany - {bagazRejestrowany}");
-            if (rezerwacjaMiejsc) Console.WriteLine("Możliwość rezerwacji miejsc");
-            if (posilekNaPokladzie) Console.WriteLine("Poczęstunek w samolocie");
-            if (pierwszaKlasa) Console.WriteLine("Oferuj lot pierwszą klasą");
+            Console.WriteLine($"{id}. {nazwa}: oferuje przeloty samolotem\n" +
+                $"\tPodstawowe informacje:\n" +
+                $"\tBagaż podręczny - {bagazPodreczny}\n" +
+                $"\tBagaż rejestrowany - do {bagazRejestrowany} kg");
+            if (rezerwacjaMiejsc) Console.WriteLine("\tMożliwość rezerwacji miejsc");
+            if (posilekNaPokladzie) Console.WriteLine("\tPoczęstunek w samolocie");
+            if (pierwszaKlasa) Console.WriteLine("\tOferuje lot pierwszą klasą");
+            Console.WriteLine("\n-----------------------------------------\n");
         }
         public void WyswietlPrzeloty()
         {
             foreach(Przelot p in przeloty)
             {
                 Console.WriteLine(p.DajInfo());
-                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("\n-----------------------------------------\n");
             }
         }
     }

@@ -36,9 +36,9 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk
             this.aktualnaIlosc -= ile;
         }
 
-        public bool SprawdzDostepnosc(int ileBiletow)
+        public bool SprawdzDostepnosc(int ileOsob)
         {
-            return (ileBiletow + aktualnaIlosc) <= samolot.liczbaMiejsc;
+            return (ileOsob + aktualnaIlosc) <= samolot.liczbaMiejsc;
         }
 
         public void WyswietlInfo()

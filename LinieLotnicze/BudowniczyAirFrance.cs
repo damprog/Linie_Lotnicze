@@ -30,6 +30,7 @@ namespace Linie_Lotnicze_Przemyslaw_Pawluk.LinieLotnicze
             liniaLotnicza.rezerwacjaMiejsc = false;
             liniaLotnicza.posilekNaPokladzie = true;
             liniaLotnicza.pierwszaKlasa = false;
+            liniaLotnicza.przeloty = new List<IPrzelot>();
         }
     }
 }
