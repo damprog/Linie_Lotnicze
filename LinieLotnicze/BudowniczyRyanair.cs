@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Linie_Lotnicze_Przemyslaw_Pawluk
+namespace Linie_Lotnicze_Przemyslaw_Pawluk.LinieLotnicze
 {
-    interface ILotnisko
+    class BudowniczyRyanair
     {
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Linie_Lotnicze_Przemyslaw_Pawluk
 {
-    interface IRezerwacja
+    class Lotnisko
     {
     }
 }
